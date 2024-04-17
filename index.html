@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>js exam</title>
+
+</head>
+
+<body>
+
+    <label>name :</label>
+    <input type="text" id="name"> <br><br>
+
+    <label>Password :</label>
+    <input type="number" id="password"> <br><br>
+
+    <label>Email :</label>
+    <input type="text" id="email"> <br><br>
+
+    <button onclick="submit()">submit</button>
+
+    <button onclick="clearData()">clear</button>
+    <br><br>
+
+    <label>name :</label>
+    <input type="text" id="n_name"> <br><br>
+
+    <label>Password :</label>
+    <input type="number" id="n_password"> <br><br>
+
+    <label>Email :</label>
+    <input type="text" id="n_email"> <br><br>
+
+
+
+    <table border="1">
+
+        <thead>
+            <tr>
+                <th>Name :</th>
+                <th>Password :</th>
+                <th>Email :</th>
+            </tr>
+        </thead>
+
+        <tbody id="tbody">
+
+        </tbody>
+
+    </table>
+
+
+    <script>
+
+        let list = JSON.parse(localStorage.getItem("list")) || []
+
+
+        let submit = () => {
+
+            let name = document.getElementById("name").value
+            let password = document.getElementById("password").value
+            let email = document.getElementById("email").value
+
+            let Data = {
+                name,
+                password,
+                email,
+            }
+
+            list.push(Data);
+
+            localStorage.setItem("list", JSON.stringify(list))
+            location.reload();
+        }
+        
+        let tbody = document.getElementById("tbody")
+
+        let getData = () => {
+
+            list.map((val, ind) => {
+
+                let tr = document.createElement("tr")
+
+                tr.innerHTML = `
+                <td>${val.name}</td>
+                <td>${val.password}</td>
+                <td>${val.email}</td>
+                <td><button onclick="viewData(${ind})">View</button></td>
+                <td>${val.email}</td>
+                `
+
+                tbody.appendChild(tr);
+            })
+        }
+
+        let clearData = () =>{
+
+            localStorage.removeItem("list");
+            location.reload()
+        }
+        
+        let viewData = (ind) =>{
+
+            let Data = list[ind];
+
+             document.getElementById("n_name").value = data.name
+             document.getElementById("n_password").value = data.password
+             document.getElementById("n_email").value = data.email
+
+        }
+
+    
+
+        getData();
+
+    </script>
+
+
+</body>
+
+</html>
